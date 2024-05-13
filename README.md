@@ -129,9 +129,30 @@ It is based on many open source projects that perform:
 
 ### SKY130_D1_SK3: Get familiar with open-source EDA tools
 
-#### 1. SKY_L1: OpenLANE Directory structure in detail
+#### 1. SKY_L1: OpenLANE Directory structure in detail (Work in Progress)
 
-Work in Progress
+The openlane working directory has 2 main folders: 
+- openlane
+- pdks
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/888579e2-252c-4bc7-be40-8c01baec4c6a)
+
+The pdks folder has the skywater pdk and other open source pdks.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/36d866ea-5fa6-4602-8fd0-57ba193c466a)
+
+The skywater pdk has 2 main folders: libs.tech and libs.ref
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/493e0545-0b27-4582-a47a-2935105c76d1)
+
+libs.tech contains files related to all the tools used in the design flow.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/44ab208f-214f-4897-9906-99c7fb460b05)
+
+libs.ref contains the standard cell files. We will be using "sky130_fd_sc_hd" which is the "SKY130 High Density Digital Standard Cells" library.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/668bf51f-8ba2-44ae-bba7-b48bd09db2bc)
+
 
 #### 2. SKY_L2: Design Preparation Step
 
