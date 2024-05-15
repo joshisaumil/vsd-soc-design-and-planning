@@ -153,6 +153,14 @@ libs.ref contains the standard cell files. We will be using "sky130_fd_sc_hd" wh
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/668bf51f-8ba2-44ae-bba7-b48bd09db2bc)
 
+This folder contains the technology files.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/ca776c10-66d4-4181-bb8e-4a2c7dfa005e)
+
+Openlane can be launced as follows.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/25f4ae33-1254-47bd-b272-802fdf8cf213)
+
 
 #### 2. SKY_L2: Design Preparation Step
 
