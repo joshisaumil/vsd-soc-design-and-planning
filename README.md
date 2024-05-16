@@ -179,7 +179,19 @@ The preparation step merges the **cell level .lef** file and the **technology le
 
 #### 3. SKY_L3: Review files after design preparation and run synthesis
 
-Work in Progress
+After the preparation step is complete, files are generated in the runs folder.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/e5c1ddd0-8986-4542-a2a5-f3c4c226ba5e)
+
+The merged LEF file is also created. A merged LEF file is a combination of Technology LEF and Cell LEF files into a single file, which simplifies the management and usage of these files in the IC design process. 
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/3045cc14-ab94-46e8-8d2c-f001a7e75935)
+
+By merging these files, a designer can streamline their design workflow, ensuring that all necessary data for both the technology specifications and the individual cell designs are available in one document.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/63fccc8b-acbe-4df9-ad3a-a8115c85c934)
+
+
 
 #### 4. SKY_L4: OpenLANE Project Git Link Description
 
@@ -187,4 +199,28 @@ Work in Progress
 
 #### 5. SKY_L5: Steps to characterize synthesis results
 
-Work in Progress
+**Synthesis** in the context of IC design refers to the process of converting a high-level design description (typically written in a hardware description language like Verilog or VHDL) into a gate-level netlist. 
+
+The synthesis step can be run using the following command in OpenLane:
+
+```bash
+% run_synthesis
+```
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/6e9c7bb5-4eda-464e-864e-8e7f36f73f0a)
+
+Once the synthesis is successful, we can view the reports and the results.
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/8cd9407f-691a-4101-85df-3f448dff1789)
+
+The results folder has the picorv32a.synthesis.v file. This is the Verilog output of the synthesis process for the picorv32a design. 
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/a0e125f3-a66e-4f53-9ea8-e3cc397c7eec)
+
+The reports folder has the statistics report 1_yosys_4.stat.rpt
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/6faed9c1-a7d1-4ccd-aeec-6409b08aec1e)
+
+This report provides statistical information about the synthesis process, detailing various aspects of the synthesized design. (flop ratio calculated = 1613/14876 = 10.8429%)
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/7bf8bff8-d712-4e4e-9d7d-a9f064e194df)
