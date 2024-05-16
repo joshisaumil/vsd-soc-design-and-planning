@@ -2,9 +2,9 @@
 
 ## Day 1: Inception of Open-Source EDA, OpenLANE, Sky130 PDK
 
-### SKY130_D1_SK1: How to talk to computers
+### How to talk to computers
 
-#### 1. SKY_L1: Introduction to QFN-48 package, chip, pads, core, die, IPs
+#### 1. Introduction to QFN-48 package, chip, pads, core, die, IPs
 
 We will discuss a few terms before diving into the SoC design details.
 
@@ -44,7 +44,7 @@ Example: To add 2 numbers, the ISA will specify details like the opcode for the 
 - How the result is written back to a register.
 - How signals like the clock and control flags are used to manage this process.
 
-#### 2. SKY_L2: Introduction to RISC-V
+#### 2. Introduction to RISC-V
 
 RISC-V (pronounced "risk-five") is an open standard for computer processor architectures. It's based on the RISC (Reduced Instruction Set Computing) principles, which emphasize simplicity and efficiency in the set of instructions that the processors can execute.
 
@@ -57,13 +57,13 @@ Components of a typical **RISC-V SoC (System on Chip)** die include:
 - Peripherals (GPIO/UART/SPI/USB)
 - Other components
 
-#### 3. SKY_L3: From Software Applications to Hardware
+#### 3. From Software Applications to Hardware
 
 **System software** (OS + compiler + assembler) converts apps to binary/assembly language. An example of this is a simple C/C++ program which is converted by a **compiler** to instructions, which are then converted to binary using an **assembler**.
 
-### SKY130_D1_SK2: SoC design using OpenLANE
+### SoC design using OpenLANE
 
-#### 1. SKY_L1: Introduction to all components of open-source digital asic design
+#### 1. Introduction to all components of open-source digital asic design
 
 The process of **ASIC design** usually involves
 - RTL designs
@@ -83,7 +83,7 @@ One analogy to PDKs is me wanting to construct a new building. To start building
 
 Google and Skywater open sourced a 130 nm production PDK in 2020. A 130 nm node is still sufficiently fast (example Intel P4EE @3.46 GHz).
 
-#### 2. SKY_L2: Simplified RTL2GDS flow
+#### 2. Simplified RTL2GDS flow
 
 **RTL to GDSII** flow consists of several steps:
 1. Synthesis
@@ -105,13 +105,13 @@ Google and Skywater open sourced a 130 nm production PDK in 2020. A 130 nm node 
 
 **Sign-off**: This step involves physical verifications (Design rule checking and Layout vs. Schematic checks) and timing verification (static timing analysis) to make sure timing constraints are met.
 
-#### 3. SKY_L3: Introduction to OpenLANE and striVe chipsets
+#### 3. Introduction to OpenLANE and striVe chipsets
 
 **Efabless** created an open source ASIC implementation methodology and flow called OpenLANE. Its public repository is on github [here](https://github.com/The-OpenROAD-Project/OpenLane). The goal of openlane is to produce a clean (no LVS/DRC/Timing violations) GDSII with no human intervention. It can be used to generate GDSII for macros and chips. 
 
 **striVe** is a family of open source SoCs.
 
-#### 4. SKY_L4: Introduction to OpenLANE detailed ASIC design flow
+#### 4. Introduction to OpenLANE detailed ASIC design flow
 
 It is based on many open source projects that perform:
 
@@ -127,9 +127,9 @@ It is based on many open source projects that perform:
 10. Physical verification (magic + netgen)
 11. gds2 streaming (magic)
 
-### SKY130_D1_SK3: Get familiar with open-source EDA tools
+### Get familiar with open-source EDA tools
 
-#### 1. SKY_L1: OpenLANE Directory structure in detail (Work in Progress)
+#### 1. OpenLANE Directory structure in detail (Work in Progress)
 
 The openlane working directory has 2 main folders: 
 - openlane
@@ -161,7 +161,7 @@ Openlane can be launced as follows.
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/25f4ae33-1254-47bd-b272-802fdf8cf213)
 
-#### 2. SKY_L2: Design Preparation Step
+#### 2. Design Preparation Step
 
 We will use the **picorv32a** for our design. The **PicoRV32** is a CPU core based on the RISC-V architecture. It is well-known for being a small, highly configurable RISC-V compatible processor core implemented in Verilog. The PicoRV32 core is designed to be simple and small, making it ideal for integration into Field Programmable Gate Arrays (FPGAs) and other digital integrated circuits where space and power efficiency are important.
 
@@ -177,7 +177,7 @@ The preparation step merges the **cell level .lef** file and the **technology le
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/b7633d18-ff8e-4065-97cb-5870ef86791f)
 
-#### 3. SKY_L3: Review files after design preparation and run synthesis
+#### 3. Review files after design preparation and run synthesis
 
 After the preparation step is complete, files are generated in the runs folder.
 
@@ -191,13 +191,11 @@ By merging these files, a designer can streamline their design workflow, ensurin
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/63fccc8b-acbe-4df9-ad3a-a8115c85c934)
 
+#### 4. OpenLANE Project Git Link Description
 
+The git project is here: [https://github.com/The-OpenROAD-Project/OpenLane](https://github.com/The-OpenROAD-Project/OpenLane)
 
-#### 4. SKY_L4: OpenLANE Project Git Link Description
-
-Work in Progress
-
-#### 5. SKY_L5: Steps to characterize synthesis results
+#### 5. Steps to characterize synthesis results
 
 **Synthesis** in the context of IC design refers to the process of converting a high-level design description (typically written in a hardware description language like Verilog or VHDL) into a gate-level netlist. 
 
