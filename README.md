@@ -161,16 +161,27 @@ Openlane can be launced as follows.
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/25f4ae33-1254-47bd-b272-802fdf8cf213)
 
-
 #### 2. SKY_L2: Design Preparation Step
 
-Work in Progress
+We will use the **picorv32a** for our design. The **PicoRV32** is a CPU core based on the RISC-V architecture. It is well-known for being a small, highly configurable RISC-V compatible processor core implemented in Verilog. The PicoRV32 core is designed to be simple and small, making it ideal for integration into Field Programmable Gate Arrays (FPGAs) and other digital integrated circuits where space and power efficiency are important.
+
+A **.lef** file, which stands for "Library Exchange Format," is a type of file used in integrated circuit (IC) design. Cell LEF and Technology LEF are two types of LEF files:
+
+**Cell LEF** files are used to describe the physical characteristics of cells in a library. These descriptions include information such as the size of the cell (height and width), the placement of pins (inputs and outputs), and other physical attributes necessary for layout purposes.
+
+**Technology LEF** files provide details about the different layers of the IC, such as metal layers, via layers, and other technological layers used in the manufacturing process. This information is crucial for ensuring that the design complies with the specific process technology of a semiconductor foundry.
+
+LEF files can contain routing rules and constraints that specify how connections can be made between different components on the chip. This includes the widths and spacings of wires, via sizes, and other parameters that are important for ensuring reliable manufacturing and operation.
+
+The preparation step merges the **cell level .lef** file and the **technology level .lef** file. 
+
+![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/b7633d18-ff8e-4065-97cb-5870ef86791f)
 
 #### 3. SKY_L3: Review files after design preparation and run synthesis
 
 Work in Progress
 
-#### 4. SKY_L4: OpenLANE Projecct Git Link Description
+#### 4. SKY_L4: OpenLANE Project Git Link Description
 
 Work in Progress
 
