@@ -8,7 +8,7 @@
 
 We will discuss a few terms before diving into the SoC design details.
 
-A typical **electronic board** consists of an electronic processor/chip and the interface to the outside world. The main components of an **electronic processor/chip** include: Package (example QFN-48), Die with pads, Wire bonds.
+A typical **electronic board** consists of an electronic processor/chip and the interface to the outside world. The main components of an **electronic processor/chip** include: Package (example QFN-48), Die with pads, Wire bonds.T
 
 **Foundry IPs (intellectual property)**: These are pre-designed and verified circuit blocks that can be integrated into larger chip designs. Examples include standard cells, memory blocks, analog circuits, etc.
 
@@ -37,10 +37,7 @@ RISC-V (pronounced "risk-five") is an open standard for computer processor archi
 
 #### 1. Introduction to all components of open-source digital asic design
 
-The process of **ASIC design** usually involves
-- RTL designs
-- EDA tools
-- PDK data
+The process of **ASIC design** usually involves RTL designs, EDA tools, and PDK data.
 
 **ASIC design flow** is a piece of software that takes the design from the RTL to the GDSII level. 
 
@@ -48,13 +45,7 @@ The process of **ASIC design** usually involves
 
 #### 2. Simplified RTL2GDS flow
 
-**RTL to GDSII** flow consists of several steps:
-1. Synthesis
-2. Floor/Power planning 
-3. Plancement
-4. Clock Tree Synthesis
-5. Routing
-6. Sign off
+**RTL to GDSII** flow consists of several steps: Synthesis, Floor/Power planning, Plancement, Clock Tree Synthesis, Routing, and Sign off.
 
 **Synthesis**: converts the RTL to a circuit made out of components from the standard cell library. The resultant circuit is called the gate level netlist. These standard cells have regular layout. 
 
