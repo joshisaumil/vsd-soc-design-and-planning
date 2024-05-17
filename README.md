@@ -8,25 +8,13 @@
 
 We will discuss a few terms before diving into the SoC design details.
 
-A typical **electronic board** consists of an electronic processor/chip and the interface to the outside world.
-
-The main components of an **electronic processor/chip** include:
-- Package (example QFN-48)
-- Die with pads
-- Wire bonds
+A typical **electronic board** consists of an electronic processor/chip and the interface to the outside world. The main components of an **electronic processor/chip** include: Package (example QFN-48), Die with pads, Wire bonds.
 
 **Foundry IPs (intellectual property)**: These are pre-designed and verified circuit blocks that can be integrated into larger chip designs. Examples include standard cells, memory blocks, analog circuits, etc.
 
 **Macros**: These are large, complex blocks that serve specific, higher-level functions within a chip's architecture. Examples include processor cores, complext memories, DSP blocks, etc.
 
-**Foundry Interface Files**: We communicate with foundries via foundry interface files which provide detaled guidelines and technical specifications necessary for designing ICs compatible with the foundry's manufacturing process. There are several types of foundry interface files:
-- Design Rule Manuals
-- Process Design Kits
-- SPICE models
-- Parameteic test structures
-- IP Cores
-- Reliability data
-- GDSII layer map
+**Foundry Interface Files**: We communicate with foundries via foundry interface files which provide detaled guidelines and technical specifications necessary for designing ICs compatible with the foundry's manufacturing process. 
 
 **Instruction set architecture**: ISA serves as an interface between software and hardware, providing a set of instructions that a CPU can execute. Typically software is converted to a sequence of hex and binary commands that can be executed in a layout to get an output/result.
 
@@ -37,25 +25,9 @@ The main components of an **electronic processor/chip** include:
 
 It is described using a hardware description language (HDL). 
 
-Example: To add 2 numbers, the ISA will specify details like the opcode for the addition instruction and how the operands are specified. The RTL implementation of this would detail:
-
-- How the operands are fetched from the register file.
-- How the addition is carried out (e.g., using an arithmetic logic unit, ALU).
-- How the result is written back to a register.
-- How signals like the clock and control flags are used to manage this process.
-
 #### 2. Introduction to RISC-V
 
 RISC-V (pronounced "risk-five") is an open standard for computer processor architectures. It's based on the RISC (Reduced Instruction Set Computing) principles, which emphasize simplicity and efficiency in the set of instructions that the processors can execute.
-
-Components of a typical **RISC-V SoC (System on Chip)** die include:
-- CPU core
-- Memory management unit
-- Interrupt controller
-- Timers/Clock Management circuits
-- On chip memory
-- Peripherals (GPIO/UART/SPI/USB)
-- Other components
 
 #### 3. From Software Applications to Hardware
 
@@ -72,16 +44,7 @@ The process of **ASIC design** usually involves
 
 **ASIC design flow** is a piece of software that takes the design from the RTL to the GDSII level. 
 
-**PDK** is the **process design kit**. It is a collection of files used to model a fabrication process for EDA tools used for IC design.
-
-One analogy to PDKs is me wanting to construct a new building. To start building, I need specific tools and materials that fit with the local building regulations and the types of buildings that are commonly constructed in the area. A PDK is similar to that toolkit and materials guide for chip designers. The PDK ensures that engineers design chips in a way the fab can actually build them. It consists of:
-
-- Process design rules 
-- Device models
-- Digital standard cell libraries
-- I/O libraries
-
-Google and Skywater open sourced a 130 nm production PDK in 2020. A 130 nm node is still sufficiently fast (example Intel P4EE @3.46 GHz).
+**PDK** is the **process design kit**. It is a collection of files used to model a fabrication process for EDA tools used for IC design. Google and Skywater open sourced a 130 nm production PDK in 2020. A 130 nm node is still sufficiently fast (example Intel P4EE @3.46 GHz).
 
 #### 2. Simplified RTL2GDS flow
 
@@ -129,7 +92,7 @@ It is based on many open source projects that perform:
 
 ### Get familiar with open-source EDA tools
 
-#### 1. OpenLANE Directory structure in detail (Work in Progress)
+#### 1. OpenLANE Directory structure in detail 
 
 The openlane working directory has 2 main folders: 
 - openlane
@@ -171,8 +134,6 @@ A **.lef** file, which stands for "Library Exchange Format," is a type of file u
 
 **Technology LEF** files provide details about the different layers of the IC, such as metal layers, via layers, and other technological layers used in the manufacturing process. This information is crucial for ensuring that the design complies with the specific process technology of a semiconductor foundry.
 
-LEF files can contain routing rules and constraints that specify how connections can be made between different components on the chip. This includes the widths and spacings of wires, via sizes, and other parameters that are important for ensuring reliable manufacturing and operation.
-
 The preparation step merges the **cell level .lef** file and the **technology level .lef** file. 
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/b7633d18-ff8e-4065-97cb-5870ef86791f)
@@ -197,9 +158,7 @@ The git project is here: [https://github.com/The-OpenROAD-Project/OpenLane](http
 
 #### 5. Steps to characterize synthesis results
 
-**Synthesis** in the context of IC design refers to the process of converting a high-level design description (typically written in a hardware description language like Verilog or VHDL) into a gate-level netlist. 
-
-The synthesis step can be run using the following command in OpenLane:
+**Synthesis** in the context of IC design refers to the process of converting a high-level design description (typically written in a hardware description language like Verilog or VHDL) into a gate-level netlist. The synthesis step can be run using the following command in OpenLane:
 
 ```bash
 % run_synthesis
@@ -223,6 +182,5 @@ This report provides statistical information about the synthesis process, detail
 
 > [!IMPORTANT]
 > **The flop ratio can be calculated using the ratio of the number of D flip flops to the total number of cells = 1613/14876 = 10.8429%**
-
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/7bf8bff8-d712-4e4e-9d7d-a9f064e194df)
