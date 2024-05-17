@@ -219,6 +219,10 @@ The reports folder has the statistics report 1_yosys_4.stat.rpt
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/6faed9c1-a7d1-4ccd-aeec-6409b08aec1e)
 
-This report provides statistical information about the synthesis process, detailing various aspects of the synthesized design. (flop ratio calculated = 1613/14876 = 10.8429%)
+This report provides statistical information about the synthesis process, detailing various aspects of the synthesized design. 
+
+> [!IMPORTANT]
+> **The flop ratio can be calculated using the ratio of the number of D flip flops to the total number of cells = 1613/14876 = 10.8429%**
+
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/7bf8bff8-d712-4e4e-9d7d-a9f064e194df)
