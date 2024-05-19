@@ -175,3 +175,136 @@ This report provides statistical information about the synthesis process, detail
 > **The flop ratio can be calculated using the ratio of the number of D flip flops to the total number of cells = 1613/14876 = 10.8429%**
 
 ![image](https://github.com/joshisaumil/vsd-soc-design-and-planning/assets/10101904/7bf8bff8-d712-4e4e-9d7d-a9f064e194df)
+
+
+## Day 2: Good floorplan vs bad floorplan and introduction to library cells
+
+### Chip Floor planning considerations
+
+#### 1. Utilization factor and Aspect ratio
+
+Utilization factor = Area occupied by netlist / Total area of the core
+
+Aspect Ratio = Height / Width
+
+Example:
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image.png)
+
+#### 2. Concept of pre-placed cells
+
+Certain critical cells or blocks are positioned on the chip layout early in the design process before the automatic placement and routing steps, and are referred to as pre-placed cells. Their arrangement in the chip is referred to as floor planning.
+
+#### 3. De-coupling capacitors
+
+De-coupling capacitors are used to stabilize the power supply voltage within an integrated circuit (IC). These capacitors help filter out noise and provide a steady voltage level to ensure the proper functioning of the IC.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-1.png)
+
+#### 4. Power planning
+
+Power delivery is planned in a mesh design format to avoid issues like ground bouce and voltage droop.
+
+Ground bounce is a phenomenon in VLSI (Very Large Scale Integration) design and other high-speed digital circuits where fluctuations in the ground voltage level occur due to switching activities of the transistors. This can cause significant problems in the proper functioning of the integrated circuits.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-2.png)
+
+
+#### 5. Pin placement and logical cell placement blockage
+
+Pin placement and cell placement/routing needs a handshake between frontend and backend. Then the area around the pins is blocked using blockage so that automated placement and routing tools don't place cells in the area.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-3.png)
+
+#### 6. Run floorplan on OpenLane
+
+To run the floorplanning process, type the following command in the openlane console.
+
+```bash
+% run_floorplan
+```
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-4.png)
+
+The resulting floorplan can be viewed from the results folder.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-5.png)
+
+The file contains general information about the design, such as the design name, DEF version, and units used. It defines the boundary of the chip, includes information about the placement of components, pins, nets, special nets, and regions, all of which are essential for subsequent design stages. 
+
+In the example below, the area of the chip is 660.685 $\mu m$ x 671.405 $\mu m$.  
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-6.png)
+
+To view the layout, we'll start magic.
+
+```bash
+magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def picorv32a.floorplan.def &
+```
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-7.png)
+
+Command reference:
+- a: select visible
+- s: select
+- v: view
+- z: zoom
+
+### Library Binding and Placement
+
+Place the components on the die.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-8.png)
+
+Estimate wire lengths and capacitances, add buffers/repeaters when needed.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-9.png)
+
+Run the placement command on OpenLane. The placement step will reduce the HPWL (half parameter wire length) and converge the overflow parameter.
+
+```bash
+% run_placement
+```
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-10.png)
+
+View the resulting layout in magic.
+
+```bash
+magic -T ~/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def picorv32a.floorplan.def &
+```
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-11.png)
+
+### Cell design and characterization flows
+
+Library has cells with different functionality, different sizes, different threshold voltages, etc.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-13.png)
+
+Cell design flow consists of inputs, the design steps, and the outputs.
+
+The inputs include PDKs, DRC/LVS rules, SPICE models, library, and user defined specs.
+
+Design step includes circuit design, layout design (Euler's path + stick diagram), and characterization.
+- The output of circuit design is a CDL (circuit description language) file.
+- The output of layout design is a GDSII file, LEF file, and the extracted SPICE netlist.
+- The output of the characterization step is the timing, noise, and power .lib files.
+
+### General timing characterization parameters
+
+Following are some of the parameters we need for timing characterization
+- slew_low_rise_threshold
+- slew_high_rise_threshold
+- slew_high_fall_threshold
+- slew_high_fall_threshold
+- in_rise_threshold
+- in_fall_threshold
+- out_rise_threshold
+- out_fall_threshold
+
+Propagation delay is calculated using the above parameters. It is calculated as time(out\_\*\_thr) - time(in\_\*\_thr)
+
+Examples:
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-14.png)
