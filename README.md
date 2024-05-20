@@ -308,3 +308,240 @@ Propagation delay is calculated using the above parameters. It is calculated as 
 Examples:
 
 ![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-14.png)
+
+
+
+## Day 3: Design library cell using magic layout and ngspice characterization
+
+### SPICE modeling
+
+A SPICE model is created using components, their values, and the nodes around them.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-16.png)
+
+### CMOS Inverter
+
+An inverter is a fundamental digital logic gate that performs the logical NOT operation. In digital electronics, an inverter takes a single binary input and produces an output that is the opposite (complement) of the input. 
+
+The switching threshold of an inverter, often referred to as the inverter threshold voltage, is a critical parameter in digital circuit design. 
+
+It is the input voltage at which the output of the inverter switches states, meaning it is the point where the inverter's output changes from high (logic 1) to low (logic 0), or vice versa. This threshold is typically defined as the input voltage level where the output voltage equals the input voltage.
+
+```bash
+git clone https://github.com/nickson-jose/vsdstdcelldesign.git
+```
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-17.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-18.png)
+
+View the mag file in magic.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-19.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-21.png)
+
+### CMOS fabrication process
+
+CMOS fabrication process involves multiple steps. 
+
+Create active regions
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-22.png)
+
+N-well and P-well formation
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-23.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-24.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-25.png)
+
+Formation of the gate terminal
+
+The threshold voltage of a transistor is a function of the doping concentration and the oxide capacitance
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-26.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-27.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-28.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-29.png)
+
+Lightly doped drain formation
+
+We need LDD to lower the hot electron effect and the short channel effects.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-31.png)
+
+Source and Dain formation
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-32.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-33.png)
+
+Contacts and Interconnects
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-34.png)
+
+Higher Level Metal Formation
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-35.png)
+
+### CMOS Inverter Layout
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-36.png)
+
+### SPICE parameters and netlist
+
+Extract SPICE parameters
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-39.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-40.png)
+
+
+
+```bash
+* SPICE3 file created from sky130_inv.ext - technology: sky130A
+
+.option scale=0.01u
+.include ./libs/nshort.lib
+.include ./libs/pshort.lib
+.subckt sky130_inv A Y VPWR VGND
+M1001 Y A VGND VGND nshort_model.0 w=35 l=23
++ ad=1435 pd=152 as=1365  ps=148
+M1000 Y A VPWR VPWR pshort_model.0 w=37 l=23
++ ad=1443 pd=152 as=1517 ps=156
+VDD VPWR 0 3.3V
+VSS VGND 0 0V
+Va A VGND PULSE(0V 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+C0 A Y 0.05fF
+C1 Y VPWR 0.11fF
+C2 A VPWR 0.07fF
+C3 Y 0 0.24fF
+C4 VPWR 0 0.59fF
+
+.tran 1n 20n
+.control
+run
+.endc
+.end
+```
+
+Run the script on ngspice.
+
+```bash
+ngspice sky130_inv.spice
+```
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-41.png)
+
+### CMOS inverter characterization
+
+To calculate the rise time and fall time, we use 20% and 80% of the max voltage.
+
+20% of 3.3V = 0.66V
+80% of 3.3v = 2.64V
+
+Rise time = (2.20369 - 2.16147) ns = 0.04222 ns
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-42.png)
+
+Fall time = (4.06813 - 4.0401) ns = 0.02803 ns
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-43.png)
+
+To calculate the cell rise and fall delay, we use 50% of the max voltage.
+
+50% of 3.3V = 1.65 V
+
+Cell Rise Delay = (2.18456 - 2.15) ns = 0.03456 ns
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-44.png)
+
+Call Fall Delay = (4.05432 - 4.05) ns = 0.00432 ns
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-45.png)
+
+### Introduction to Magic tool options and DRC rules
+
+Magic VLSI documentation: http://opencircuitdesign.com/magic/
+
+Skywater PDK documentation: https://skywater-pdk.readthedocs.io/en/main/
+
+Downloading DRC tech test files.
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-46.png)
+
+Viewing the .magicrc file
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-47.png)
+
+met3 periphery rules are listed in the skywater periphery rules page: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html#m3
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-48.png)
+
+Viewing the rule violation for met3
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-49.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-50.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-51.png)
+
+Viewing another rule violation for metal3
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-52.png)
+
+Load the poly file
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-53.png)
+
+Find the incorrect structure. See that the rule violation is not identified.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-54.png)
+
+The distance between the poly and npolyres is only 0.21 $\mu m$.
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-56.png)
+
+The rule, however, is > 0.48 $\mu m$.
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-57.png)
+
+Edit the relevant location of the file with the appropriate rule.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-59.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-60.png)
+
+Reload the tech file and check the drc again.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-62.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-63.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-64.png)
+
+Identifying other simple incorrect DRC.
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-66.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-65.png)
+
+Adding the relevant rule
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-67.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-68.png)
+
+Lab challenge to find missing or incorrect rules and fix them
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-69.png)
+
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-71.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-70.png)
+
+![alt text](https://github.com/joshisaumil/vsd-soc-design-and-planning/blob/main/assets/images/image-72.png)
+
